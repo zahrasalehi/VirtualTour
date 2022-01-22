@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+<!-- this is my university project to make a virtual tour -->
+<!--<this project writen by Seyedeh Zahra Salehi , id : 9672243>-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tour</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+    <style>
+        #panorama {
+            width: 100%;
+            height: 600px;
+        }
+        .nana {
+            background-color: aquamarine;
+            width: 50%;
+        }
+        #controls {
+        position: absolute;
+        bottom: 0;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+        padding-bottom: 3px;
+    }
+    .ctrl {
+        padding: 8px 5px;
+        width: 30px;
+        text-align: center;
+        background: rgba(200, 200, 200, 0.8);
+        display: inline-block;
+        cursor: pointer;
+    }
+    .ctrl:hover {
+        background: rgba(200, 200, 200, 1);
+    }
+    .x {
+        min-height: 100vh;
+    }        
+    </style>
+</head>
+
+<body>
+
+
+<div class="x" id="panorama">
+    <div id="controls">
+        <div class="ctrl" id="pan-up">&#9650;</div>
+        <div class="ctrl" id="pan-down">&#9660;</div>
+        <div class="ctrl" id="pan-left">&#9664;</div>
+        <div class="ctrl" id="pan-right">&#9654;</div>
+        <div class="ctrl" id="zoom-in">&plus;</div>
+        <div class="ctrl" id="zoom-out">&minus;</div>
+        <!-- <div class="ctrl" id="fullscreen">&#x2922;</div> -->
+    </div>
+</div>
+
+
+    <script>
+
+        document.getElementById('pan-up').addEventListener('click', function(e) {
+            viewer.setPitch(viewer.getPitch() + 50);
+        });
+        document.getElementById('pan-down').addEventListener('click', function(e) {
+            viewer.setPitch(viewer.getPitch() - 50);
+        });
+        document.getElementById('pan-left').addEventListener('click', function(e) {
+            viewer.setYaw(viewer.getYaw() - 50);
+        });
+        document.getElementById('pan-right').addEventListener('click', function(e) {
+            viewer.setYaw(viewer.getYaw() + 50);
+        });
+        document.getElementById('zoom-in').addEventListener('click', function(e) {
+            viewer.setHfov(viewer.getHfov() - 50);
+        });
+        document.getElementById('zoom-out').addEventListener('click', function(e) {
+            viewer.setHfov(viewer.getHfov() + 50);
+        });
+
+        function nodo() {
+            Swal.fire({
+                title: 'Sweet!',
+                text: 'Modal with a custom image.',
+                imageUrl: 'https://unsplash.it/400/200',
+                imageWidth: "100%",
+                imageHeight: "100%",
+                imageAlt: 'Custom image',
+                confirmButtonText: "cerrar",
+                customClass: "nana"
+            })
+        }
+
+        viewer = pannellum.viewer('panorama', {
+            "default": {
+                "firstScene": "entrada",
+                "author": "Zahra Salehi",
+                "sceneFadeDuration": 1000,
+                "showControls": false
+            },
+
+            "scenes": {
+                "entrada": {
+                    "autoLoad": true,
+                    "title": "main entrance",
+                    "hfov": 500,
+                    "pitch": 1.6473814187756146,
+                    "yaw": 1.8343954817635746,
+                    "type": "equirectangular",
+                    "panorama": "/images/entrada.jpg",
+                    "autoRotate": -10,
+                    "hotSpotDebug": false,
+                    "hotSpots": [
+                        {
+                            "pitch": -5,
+                            "yaw": -70,
+                            "type": "scene",
+                            "text": "nasa 1",
+                            "sceneId": "ESO1"
+                        },
+                        {
+                            "pitch": -5,
+                            "yaw": 70,
+                            "type": "scene",
+                            "text": "EOS 2",
+                            "sceneId": "ESO2"
+                        },
+                        {
+                            "hfov": 110,
+                            "pitch": 10.371935422677701,
+                            "yaw": 177.39670728611372,
+                            "type": "info",
+                            "text": "مرکز رصد خانه ای اس او در شیلی",
+                            "clickHandlerFunc": nodo
+                        }                                               
+                    ]
+                },
+
+                "ESO1": {
+                    "autoLoad": true,
+                    "title": "ESO 1",
+                    "hfov": 900,
+                    "pitch": 10,
+                    "yaw": 90,
+                    "type": "equirectangular",
+                    "panorama": "/images/ESO1.jpg",
+                    "autoRotate": -10,
+                    "hotSpotDebug": false,
+                    "hotSpots": [
+                        {
+                            "pitch": -10,
+                            "yaw": 45,
+                            "type": "scene",
+                            "text": "main entrance",
+                            "sceneId": "entrada"
+                        },                       {
+                            "pitch": -10,
+                            "yaw": -90,
+                            "type": "scene",
+                            "text": "ESO 2",
+                            "sceneId": "ESO2"
+                        },
+                        {
+                            "hfov": 110,
+                            "pitch": 4.829042691552391,
+                            "yaw": -130.46120255227498,
+                            "type": "info",
+                            "text": "از بزرگترین تلسکوپ‌های نوری جهان هستند که در رصدخانه پارانال در شیلی به صورت آرایه‌ای قرار گرفته‌اند.\n" +
+                                "\n" +
+                                "مالکیت این تلسکوپ‌ها با سازمان رصدخانه جنوبی اروپا (ESO) است. ",
+                            "clickHandlerFunc": nodo
+                        },
+                        {
+                            "hfov": 110,
+                            "pitch": 12.888179936636135,
+                            "yaw": 30.27269057993482,
+                            "type": "info",
+                            "text": "کهکشان راه شیری",
+                            "clickHandlerFunc": nodo
+                        },
+                        {
+                            "hfov": 110,
+                            "pitch": 10.05961813493795,
+                            "yaw": 100.39392089966393,
+                            "type": "info",
+                            "text": "تلسکوپ های VLT",
+                            "clickHandlerFunc": nodo
+                        },
+
+                    ]
+                },
+
+                "ESO2": {
+                    "autoLoad": true,
+                    "title": "ESO 2",
+                    "hfov": 900,
+                    "pitch": 3.475773155626582,
+                    "yaw": 1.2347982615142974,
+                    "type": "equirectangular",
+                    "panorama": "/images/ESO2.jpg",
+                    "autoRotate": -10,
+                    "hotSpotDebug": false,
+                    "hotSpots": [
+                        {
+                            "pitch": 5.9,
+                            "yaw": -180.69,
+                            "type": "scene",
+                            "text": "main enterance",
+                            "sceneId": "entrada"
+                        },                        {
+                            "pitch": 5.9,
+                            "yaw": -80.69,
+                            "type": "scene",
+                            "text": "ESO 1",
+                            "sceneId": "ESO1"
+                        },
+                        {
+                            "pitch": 14.006656151319785,
+                            "yaw": -64.7948786973273,
+                            "type": "info",
+                            "text": "کهکشان راه شیری",
+                            "clickHandlerFunc": nodo
+                        },
+                        {
+                            "pitch": 14.1,
+                            "yaw": 10.3,
+                            "type": "info",
+                            "text": "لیزر مورد استفاده برای اپتیک تطبیقی. اتم های سدیم موجود در جو را تحریک می کند و یک ستاره راهنمای لیزری ایجاد می کند. ",
+                            "clickHandlerFunc": nodo
+                        }
+                    ]
+                }                
+            }
+        });
+    </script>
+
+</body>
+
+</html>
